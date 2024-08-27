@@ -9,15 +9,7 @@ from orm_functions import create_data_entry, create_user,update_data_entry,set_u
 
 
 from middleware import token_required
-# Twilio credentials
-account_sid = 'ACf3543a8ed2c3e7310ccd5623e22f6f3a'
-auth_token = '6af12b861e8b901fa7c89ebbe71dda32'
-twilio_phone_number = '+13344909970'
-SECRET_KEY="my_app"
 
-client = Client(account_sid, auth_token)
-
-# In-memory store for OTPs (for demonstration purposes)
 otp_store = {}
 
 def define_routes(app):
