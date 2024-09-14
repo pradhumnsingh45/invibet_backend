@@ -1,7 +1,7 @@
 import os
 import time
 from config import SETTINGS
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
@@ -16,8 +16,13 @@ rds_url = 'postgresql://{}:{}@{}/{}'.format(db_cred.get('user'), db_cred.get('pa
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = rds_url
 db = SQLAlchemy(app)
+from routes.login_routes import login_bp
+app.register_blueprint(login_bp, url_prefix='/login')
 
+def define_routes(app):
 
-from routes import define_routes
-
+    @app.route("/public/health", methods=["GET"])
+    def health_ping():
+        return jsonify({'message': 'success'}), 200
+    
 define_routes(app)
